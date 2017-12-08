@@ -58,16 +58,12 @@ var template_html = '<!DOCTYPE html>\n' +
     '		<div class="container">\n' +
     '			<div class="navbar-header">\n' +
     '				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">\n' +
-    '					<span class="icon-bar"></span>\n' +
-    '					<span class="icon-bar"></span>\n' +
-    '					<span class="icon-bar"></span>\n' +
+    '$SPAN_REPLACEMENT$' +
     '			</button> <a class="navbar-brand" href="#">Me</a>\n' +
     '			</div>\n' +
     '				<div class="collapse navbar-collapse" id="myNavbar">\n' +
     '				<ul class="nav navbar-nav navbar-right">\n' +
-    '					<li><a href="#">WHO</a></li>\n' +
-    '					<li><a href="#">WHAT</a></li>\n' +
-    '					<li><a href="#">WHERE</a></li>\n' +
+    '$LINK_REPLACEMENT$' +
     '				</ul>\n' +
     '			</div>\n' +
     '		</div>\n' +
@@ -100,8 +96,20 @@ function download() {
 }
 
 function generate() {
-    const names = inputNames.value;
-    let template = "Names: " + names + "\nStatus: Not implemented!";
-    // TODO
+    const namesValue = inputNames.value;
+
+    var link_replacement = "";
+    var span_content = "";
+    const names = namesValue.split(',');
+    for (var i = 0; i < names.length; i++) {
+        console.log(names);
+        link_replacement += '					<li> <a href = "#">' + names[i] + '</a></li>\n';
+        span_content += " 					<span class="
+        icon - bar "></span>\n";
+        console.log(link_replacement);
+    }
+
+    template_html = template_html.replace("$LINK_REPLACEMENT$", link_replacement);
+    template_html = template_html.replace("$SPAN_REPLACEMENT$", span_content);
     result.innerHTML = template_html;
 }
